@@ -16,19 +16,21 @@ namespace VRChatCleanup
             Console.ReadLine();
             Console.WriteLine("Deleting VRChat Local Folder");
             DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\VRChat");
-            Console.WriteLine("Done\nDeleting VRChat Local Temp Folder");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+"\\VRChat");
             DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\VRChat");
-            Console.WriteLine("Done\nDeleting VRChat Local Low Folder");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\VRChat");
             DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "Low\\VRChat");
-            Console.WriteLine("Done\nDeleting VRChat Roaming Folder");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "Low\\VRChat");
             DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VRChat");
-            Console.WriteLine("Done\nDeleting VRChat Unity Folder");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VRChat");
             DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\DefaultCompany");
-            Console.WriteLine("Done\nDeleting VRChat Unity Folder 2");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Temp\\DefaultCompany");
             DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "Low\\DefaultCompany");
-            Console.WriteLine("Done\nDeleting Registry Values");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "Low\\DefaultCompany");
+            DeleteFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EasyAntiCheat");
+            Console.WriteLine("Borrado " + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EasyAntiCheat" + "\nDeleting Registry Values");
             DeleteRegistry();
-            Console.WriteLine("Done, Make sure to use your fav HWID spoofer and you should be fairly safe.");
+            Console.WriteLine("Hecho, usa el hwid spoofer y ya.");
             Console.ReadLine();
             
 
@@ -38,20 +40,23 @@ namespace VRChatCleanup
         {
             try
             {
-                Directory.Delete(folder);
+                Directory.Delete(folder, true);
             } catch { }
         }
 
         static private void DeleteRegistry()
         {
-            string keyName = @"Software\VRChat";
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName, true))
-            {
-                if (key != null)
+            try
+            { 
+                string keyName = @"Software\VRChat";
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName, true))
                 {
-                    key.DeleteSubKey("VRChat");
+                    if (key != null)
+                    {
+                        key.DeleteSubKey("VRChat");
+                    }
                 }
-            }
+            } catch {  }
         }
     }
 }
